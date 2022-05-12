@@ -5,6 +5,7 @@ function randomNum() {
     return list[rand];
 }
 
+// Unused function from the console version of the game
 function cleanPrompt(playerChosen) {
     if (!(typeof playerChosen === 'string' | playerChosen instanceof String)) {
         throw `Invalid Type: prompted input type is ${typeof playerChosen} expected String.`;
@@ -42,45 +43,66 @@ function evalWinner(playerChosen, computerChosen) {
     return 'player';
 }
 
-let wantToPlay = prompt("Press (1) to play: ");
+// let wantToPlay = prompt("Press (1) to play: ");
+const rockBtn = document.querySelector(".rock");
+const paperBtn = document.querySelector(".paper");
+const scissorsBtn = document.querySelector(".scissors");
+const result = document.querySelector("#result");
+const roundNum = document.querySelector("#roundNum");
+const playerScore = document.querySelector("#playerScore");
+const computerScore = document.querySelector("#computerScore");
+let computerChosen = "";
 
-if (wantToPlay == 1) {
-    let scoreBoard = {
-        'computer': 0,
-        'player': 0,
-        'tie': 0 
-    };
-    for (let i = 1; i <= 5; i++) {
-        let computerChosen = randomNum();
-        let playerChosen = prompt("Choose 'rock, paper, or scissors': ");
-        try {
-            playerChosen = cleanPrompt(playerChosen);
-        } catch (error) {
-            console.error(error);
-            continue;
-        }
-        let winner = evalWinner(playerChosen, computerChosen);
-        scoreBoard[winner]++;
-        if (winner != 'tie') {
-            console.log(
-                `You chose ${playerChosen} \nComputer chose ${computerChosen} \nThe winner is ${winner}`
-            );    
-        } else {
-            console.log('The result is tie');
-        }
-    }
-    if (scoreBoard['computer'] > scoreBoard['player']) {
-        console.log(
-            `The final result is ${scoreBoard['computer']} - ${scoreBoard['player']} \nYou Lost!`
-        );
-    } else if (scoreBoard['computer'] < scoreBoard['player']) {
-        console.log(
-            `The final result is ${scoreBoard['computer']} - ${scoreBoard['player']} \nYou Won!`
-        );
+function increment(score, incrementValue = 1, reset = false) {
+    let scoreInt = parseInt(score.textContent);
+    if (reset) {
+        score.textContent = 0;
     } else {
-        console.log(
-            `The final result is ${scoreBoard['computer']} - ${scoreBoard['player']} \nIt is a tie!`
-        );
+        score.textContent = scoreInt + incrementValue;
     }
 }
 
+function evalResult() {
+    const playerScoreText = playerScore.textContent;
+    const computerScoreText = computerScore.textContent;
+    if (playerScoreText == 5 && computerScoreText == 5) {
+        result.textContent = "The result is  a tie";
+    } else if (playerScoreText == 5) {
+        result.textContent = "You Won, Congrats!";
+    } else if (computerScoreText == 5) {
+        result.textContent = "Oops, You Lost";
+    }
+    if (playerScoreText == 5 | computerScoreText == 5) {
+        increment(computerScore, 0, true);
+        increment(playerScore, 0, true);
+        increment(roundNum, 0, true);
+    }
+}
+
+function evalRound(playerChosen) {
+    computerChosen = randomNum();
+    const winner = evalWinner(playerChosen, computerChosen);
+    result.textContent = `You chose ${playerChosen} and the computer chose ${computerChosen}, and the winner is ${winner}`;
+    increment(roundNum);
+    if (winner == "computer") {
+        increment(computerScore);
+    } else if (winner == "player") {
+        increment(playerScore);
+    } else {
+        increment(computerScore);
+        increment(playerScore);
+    }
+    evalResult();
+}
+
+rockBtn.addEventListener('click', () => {
+    evalRound("rock");
+});
+
+paperBtn.addEventListener('click', () => {
+    evalRound("paper");
+})
+
+scissorsBtn.addEventListener('click', () => {
+    evalRound("scissors");
+});

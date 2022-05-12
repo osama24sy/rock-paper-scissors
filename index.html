@@ -4,12 +4,50 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
     <title>Rock Paper Scissors</title>
 </head>
 <body>
-    <h1 style="text-align: center;">Welcome to my game</h1>
-    <h2 style="text-align: center;">Note that this game is played in the console for now</h2>
-    <h3 style="text-align: center;">Developed by Osama Shbib</h3>
+    <div class="container">
+        <div class="game">
+            <div class="head">
+                <h1 style="text-align: center;">Welcome to my game</h1>
+                <h2 style="text-align: center;">This is the ui version of the game enjoy</h2>
+            </div>
+            <div class="gameStats">
+                <div>
+                    <p>Round : </p>
+                    <p id="roundNum">0</p>    
+                </div>
+                <div>
+                    <p>Player Score : </p>
+                    <p id="playerScore">0</p>    
+                </div>
+                <div>
+                    <p>Computer Score : </p>
+                    <p id="computerScore">0</p>    
+                </div>
+            </div>
+            <div class="gameController">
+                <div class="contHead">
+                    <p>Choose :</p>
+                </div>
+                <div class="buttons">
+                    <button class="rock">Rock</button>
+                    <button class="paper">Paper</button>
+                    <button class="scissors">Scissors</button>    
+                </div>
+            </div>
+            <div class="gameResult">
+                <!-- Game result is going to be added through JavaScript-->
+                <p id="result"></p>
+            </div>
+            <div class="credit">
+                <h3 style="text-align: center;">Developed by Osama Shbib</h3>
+            </div>
+        </div>
+    
+    </div>
 </body>
 <script src="script.js"></script>
 </html>
