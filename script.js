@@ -5,25 +5,6 @@ function randomNum() {
     return list[rand];
 }
 
-// Unused function from the console version of the game
-function cleanPrompt(playerChosen) {
-    if (!(typeof playerChosen === 'string' | playerChosen instanceof String)) {
-        throw `Invalid Type: prompted input type is ${typeof playerChosen} expected String.`;
-    }
-    playerChosen = playerChosen.toLowerCase();
-    let great = false;
-    for (let i = 0; i < 3; i++) {
-        if (playerChosen === list[i]) {
-            great = true;
-        }
-    }
-    if (great) {
-        return playerChosen;
-    } else {
-        throw `Invalid input: prompted ${playerChosen} expected one of the valid inputs (rock, paper, scissors)`;
-    }
-}
-
 function evalWinner(playerChosen, computerChosen) {
     if (playerChosen === computerChosen) {
         return 'tie';
